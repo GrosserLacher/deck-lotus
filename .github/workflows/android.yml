@@ -49,6 +49,14 @@ jobs:
       - name: Unit tests and debug APK
         run: ./gradlew test :app:assembleDebug
 
+      # Keep the debug APK downloadable from the run (Artifacts section)
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: deck-lotus-debug
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
   release:
     name: Signed release APK
     if: github.event_name != 'pull_request'
